@@ -14,6 +14,8 @@ const BillProvider = ({ children }) => {
   ]);
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   useEffect(() => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
@@ -32,6 +34,10 @@ const BillProvider = ({ children }) => {
         addCategory,
         searchQuery,
         setSearchQuery,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate,
       }}
     >
       {children}

@@ -6,13 +6,22 @@ import searchInIcon from "../../images/search.png";
 import calenderIcon from "../../images/calender.png";
 import Inputs from "../Inputs/Inputs";
 import { billContext } from "../Bills/BillsContext";
+import Button from "../Button/Button";
 
 const NavBarItems = () => {
-  const { setSearchQuery } = useContext(billContext);
+  const { setSearchQuery, setStartDate, setEndDate } = useContext(billContext);
   const [date, setDate] = useState("");
 
+  // const [localStart, setLocalStart] = useState("");
+  // const [localEnd, setLocalEnd] = useState("");
+
+  // const handleSearch = () => {
+  //   setStartDate(localStart);
+  //   setEndDate(localEnd);
+  // };
+
   return (
-    <div className="flex flex-row gap-2.5">
+    <div className="flex flex-row text-xs gap-1">
       <Inputs
         type={"text"}
         placeholder={"search..."}
@@ -25,21 +34,27 @@ const NavBarItems = () => {
         placeholder={"date"}
         value={date}
         icon={calenderIcon}
-        widthEnter={"120px"}
-        onchange={(e) => setDate(e.target.value)}
+        widthEnter={"150px"}
+        onchange={(e) => {
+          setStartDate(e.target.value);
+          setDate(e.target.value);
+        }}
       />
       <Inputs
         type={"date"}
         placeholder={"date"}
         value={date}
         icon={calenderIcon}
-        widthEnter={"120px"}
-        onchange={(e) => setDate(e.target.value)}
+        widthEnter={"150px"}
+        onchange={(e) => {
+          setEndDate(e.target.value);
+          setDate(e.target.value);
+        }}
       />
 
       <a className="flex flex-row items-center" href="#">
         <img className="w-[25px] h-[25px]" src={profileIcon} />
-        <p className="text-gray-700 text-sm">Sign In</p>
+        {/* <p className="text-gray-700 text-sm">Sign In</p> */}
       </a>
 
       <a href="#">

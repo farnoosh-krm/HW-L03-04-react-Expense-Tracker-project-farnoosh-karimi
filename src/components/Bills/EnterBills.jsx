@@ -52,7 +52,7 @@ const EnterBills = () => {
           onchange={(e) => setDate(e.target.value)}
         />
 
-        <Button type={"submit"} label={"Add Transaction"} />
+        <Button type={"submit"} widthBtn={"200px"} label={"Add Transaction"} />
       </form>
     </div>
   );

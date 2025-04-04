@@ -2,13 +2,23 @@ import React, { useContext } from "react";
 import { billContext } from "./BillsContext";
 
 const ShowBills = () => {
-  const { transactions, searchQuery } = useContext(billContext);
+  const { transactions, searchQuery, startDate, endDate } =
+    useContext(billContext);
 
-  const filteredTransactions = transactions.filter(
-    (item) =>
+  const filtered = transactions.filter((item) => {
+    const matchesQuery =
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.value.toString().includes(searchQuery)
-  );
+      item.value.toString().includes(searchQuery);
+
+    const itemDate = new Date(item.date);
+    const start = startDate ? new Date(startDate) : null;
+    const end = endDate ? new Date(endDate) : null;
+
+    const matchesDate =
+      (!start || itemDate >= start) && (!end || itemDate <= end);
+
+    return matchesQuery && matchesDate;
+  });
 
   return (
     <div className=" bg-white/30 col-span-1 row-span-3 rounded-2xl p-4 shadow-lg shadow-black/45 text-sm">
@@ -28,7 +38,7 @@ const ShowBills = () => {
           </thead>
 
           <tbody>
-            {filteredTransactions.map((item, index) => (
+            {filtered.map((item, index) => (
               <tr key={item.id} className="hover:bg-indigo-300">
                 <td className="border-b-2 p-2 text-center">{index + 1}</td>
                 <td className="border-b-2 p-2 text-center">{item.title}</td>
