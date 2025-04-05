@@ -8,11 +8,14 @@ import Tabels from "./components/Tables/Tables";
 import MiddleLayout from "./components/Layout/MiddleLayout";
 import BillsLayout from "./components/Bills/BillsLayout";
 import BillProvider from "./components/Bills/BillsContext";
+import ReminderAlert from "./components/Bills/ReminderAlert";
 
 function App() {
   return (
     <>
       <BillProvider>
+        <ReminderAlert />
+
         <Layout>
           <MenuBar />
           <MiddleLayout>

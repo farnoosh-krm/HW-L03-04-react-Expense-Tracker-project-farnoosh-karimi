@@ -16,10 +16,35 @@ const BillProvider = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [reminderMessage, setReminderMessage] = useState("");
+
+  const closeReminder = () => setReminderMessage("");
 
   useEffect(() => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
   }, [transactions]);
+
+  useEffect(() => {
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+
+    const reminders = transactions.filter((item) => {
+      if (item.repeat === "none") return false;
+
+      const lastDate = new Date(item.date);
+      const diffDays = Math.floor((now - lastDate) / (1000 * 60 * 60 * 24));
+
+      if (item.repeat === "weekly" && diffDays >= 7) return true;
+      if (item.repeat === "monthly" && diffDays >= 30) return true;
+
+      return false;
+    });
+
+    if (reminders.length > 0) {
+      setReminderMessage("📌 It's time to pay your recurring expenses!");
+      // alert("📌 It's time to pay your recurring expenses!");
+    }
+  }, []);
 
   const addTransaction = (transaction) =>
     setTransactions([...transactions, transaction]);
@@ -38,6 +63,8 @@ const BillProvider = ({ children }) => {
         setStartDate,
         endDate,
         setEndDate,
+        reminderMessage,
+        closeReminder,
       }}
     >
       {children}

@@ -34,6 +34,7 @@ const ShowBills = () => {
               <th className="border-b-2 p-2 text-center">Title</th>
               <th className="border-b-2 p-2 text-center">Value</th>
               <th className="border-b-2 p-2 text-center">Date</th>
+              <th className="border-b-2 p-2 text-center">Repeat</th>
             </tr>
           </thead>
 
@@ -44,6 +45,7 @@ const ShowBills = () => {
                 <td className="border-b-2 p-2 text-center">{item.title}</td>
                 <td className="border-b-2 p-2 text-center">{item.value} $</td>
                 <td className="border-b-2 p-2 text-center">{item.date}</td>
+                <td className="border-b-2 p-2 text-center">{item.repeat}</td>
               </tr>
             ))}
           </tbody>

@@ -11,14 +11,22 @@ const EnterBills = () => {
   const [title, setTitle] = useState("");
   const [value, setValue] = useState("");
   const [date, setDate] = useState("");
+  const [repeat, setRepeat] = useState("none");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !value || !date) return;
-    addTransaction({ id: Date.now(), title, value: parseFloat(value), date });
+    addTransaction({
+      id: Date.now(),
+      title,
+      value: parseFloat(value),
+      date,
+      repeat,
+    });
     setTitle("");
     setValue("");
     setDate("");
+    setRepeat("none");
   };
 
   return (
@@ -51,6 +59,15 @@ const EnterBills = () => {
           widthEnter="300px"
           onchange={(e) => setDate(e.target.value)}
         />
+        <select
+          className="ml-2 mt-1 p-1 rounded-2xl shadow-2xl shadow-gray-400 bg-white/60 border-2 border-blue-400 focus:outline-1"
+          onChange={(e) => setRepeat(e.target.value)}
+          value={repeat}
+        >
+          <option value="none">no repeat</option>
+          <option value="weekly">weekly</option>
+          <option value="monthly">monthly</option>
+        </select>
 
         <Button type={"submit"} widthBtn={"200px"} label={"Add Transaction"} />
       </form>
